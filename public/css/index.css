@@ -1,0 +1,45 @@
+#logo {
+    height: 200px;
+}
+
+.container {
+    position: relative;
+    /* bottom: 60px; */
+    overflow: hidden;
+}
+
+#wave {
+    position: absolute;
+    width: 100vw;
+    bottom: -350px;
+    z-index: -1;
+    opacity: .7;
+}
+
+p {
+    max-width: 200px;
+    text-align: left;
+    position: relative;
+    font-size: 22px;
+    top: -64px;
+    left: 58px;
+}
+
+.btn i {
+    margin-left: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+    p {
+        font-size: 14px;
+        max-width: 150px;
+        top: -40px;
+        left: 50px;
+    }
+    #logo {
+        height: 130px;
+    }
+    .btn {
+        width: 100%;
+    }
+}
