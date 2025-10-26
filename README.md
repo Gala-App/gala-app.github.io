@@ -12,7 +12,7 @@ The Official App for Party Planning
 ├── .gitignore         # Git ignore rules
 ├── routes/            # Route handlers
 │   └── index.js       # Main routes
-└── public/            # Static files
+└── docs/            # Static files
     ├── index.html     # Home page
     ├── 404.html       # 404 error page
     ├── css/
