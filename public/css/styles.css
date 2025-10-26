@@ -76,6 +76,7 @@ a:hover {
     border-radius: 12px;
     margin: 8px;
     width: 215px;
+    cursor: pointer;
 }
 
 .btn-primary {
