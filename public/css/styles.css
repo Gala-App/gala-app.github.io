@@ -27,7 +27,8 @@ body {
 h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #fff;
+    color: #621206;
+    /* color: #fff; */
 }
 
 p {
@@ -42,6 +43,7 @@ a {
     text-decoration: none;
     margin-top: 1rem;
     display: inline-block;
+    color: #A28B81;
 }
 
 a:hover {
