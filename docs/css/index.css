@@ -31,6 +31,9 @@ p {
 }
 
 @media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 26px;
+    }
     p {
         font-size: 14px;
         max-width: 150px;
@@ -42,5 +45,8 @@ p {
     }
     .btn {
         width: 100%;
+    }
+    .btn-image img {
+        width: 110px;
     }
 }
