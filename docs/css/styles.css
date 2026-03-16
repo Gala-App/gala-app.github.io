@@ -9,8 +9,8 @@ body {
     line-height: 1.6;
     color: #E4D7C3;
     /* background-color: #fff; */
-    /* background-color: #000; */
-    background-color: #F9F8F7;
+    background-color: #A28B81;
+    /* background-color: #F9F8F7; */
 }
 
 .container {
@@ -29,15 +29,13 @@ h1 {
     font-weight: 500;
     font-size: 30px;
     margin-bottom: 8px;
-    color: #621206;
-    /* color: #fff; */
+    color: #fff;
 }
 
 p {
     font-family: "Inter", sans-serif;
     font-size: 1.1rem;
-    color: #621206;
-    /* color: #E4D7C3; */
+    color: #E4D7C3;
 }
 
 a {
