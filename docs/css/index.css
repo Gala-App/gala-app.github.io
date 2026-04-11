@@ -1,3 +1,5 @@
+/* V1 */
+
 #logo {
     width: 500px;
     height: auto;
@@ -5,8 +7,6 @@
 
 .container {
     position: relative;
-    /* bottom: 60px; */
-    overflow: hidden;
 }
 
 #wave {
@@ -15,15 +15,6 @@
     bottom: -350px;
     z-index: -1;
     opacity: .7;
-}
-
-p {
-    max-width: 200px;
-    text-align: left;
-    position: relative;
-    font-size: 22px;
-    top: -64px;
-    left: 58px;
 }
 
 .btn i {
@@ -37,9 +28,6 @@ p {
     }
     p {
         font-size: 14px;
-        max-width: 150px;
-        top: -40px;
-        left: 50px;
     }
     #logo {
         width: 250px;
@@ -49,6 +37,159 @@ p {
         width: 100%;
     }
     .btn-image img {
-        width: 110px;
+        width: 100px;
+    }
+}
+
+/* V2 */
+
+.container {
+    max-width: none;
+    align-items: stretch;
+}
+
+.hero-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+}
+
+#nav-logo {
+    max-height: 40px;
+}
+
+.nav-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    display: none;
+}
+
+.c2 {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.c2 .display-large {
+    max-width: 680px;
+}
+
+.c3 {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.c3 img {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.talent {
+    position: absolute;
+    bottom: 84px;
+    left: 84px;
+    z-index: 1;
+}
+
+.c4 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+#bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #A28B81;
+}
+
+#bottom-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.8rem;
+}
+
+#bottom-nav-left span {
+    color: inherit;
+}
+
+#bottom-nav-left a {
+    font-size: 0.8rem;
+    margin-top: 0;
+    color: inherit;
+    opacity: 0.8;
+}
+
+#bottom-nav-logo {
+    height: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    #navbar {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+    .display-large {
+        font-size: 30px;
+        line-height: 45px;
+    }
+    .talent {
+        left: 44px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #bottom-navbar {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    #bottom-nav-left {
+        flex-wrap: wrap;
+        row-gap: 4px;
     }
 }
