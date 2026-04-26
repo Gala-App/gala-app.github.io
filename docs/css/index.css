@@ -1,7 +1,7 @@
 /* V1 */
 
 #logo {
-    width: 500px;
+    width: 400px;
     height: auto;
 }
 
@@ -53,7 +53,8 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.15), 0 12px 48px rgba(0, 0, 0, 0.35);
+    /* box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35); */
 }
 
 #hero {
@@ -86,6 +87,27 @@
     display: none;
 }
 
+.coming-soon {
+    font-family: "Zain", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    margin-bottom: 8px;
+    color: #A28B81;
+    line-height: 55px;
+    text-align: center;
+}
+
+.c1 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #E4D7C3;
+}
+
 .c2 {
     height: 100vh;
     display: flex;
@@ -111,6 +133,15 @@
     width: 100%;
     height: 100vh;
     object-fit: cover;
+}
+
+.marketplace {
+    position: absolute;
+    top: 84px;
+    left: 84px;
+    z-index: 1;
+    color: #E4D7C3;
+    text-align: left;
 }
 
 .talent {
@@ -183,6 +214,9 @@
     }
     .talent {
         left: 44px;
+    }
+    .coming-soon {
+        font-size: 25px;
     }
 }
 
