@@ -10,6 +10,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'docs')));
 
+// Apple App Site Association — must be served with JSON content-type, no redirect
+app.get('/.well-known/apple-app-site-association', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.json({
+    applinks: {
+      details: [
+        {
+          appIDs: ['HD7ZCZ2C96.com.galatheapp.app'],
+          components: [
+            { '/': '/view-talent/*' }
+          ]
+        }
+      ]
+    }
+  });
+});
+
 // Routes
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
