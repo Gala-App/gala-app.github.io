@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["HD7ZCZ2C96.com.galatheapp.app"],
+        "components": [
+          { "/": "/view-talent/*" }
+        ]
+      }
+    ]
+  }
+}
