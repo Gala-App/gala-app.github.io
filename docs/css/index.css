@@ -9,9 +9,16 @@
 }
 
 /* Taupe is the persistent backdrop for the whole scroll — the hero sets
-   that tone, then the cream cards float on top of it as you scroll. */
+   that tone, then the cream cards float on top of it as you scroll.
+   The watermark logo is fixed to the viewport (not the page), so it only
+   ever becomes visible through the gaps between cards as they scroll past. */
 body {
     background-color: var(--gala-bg);
+    background-image: url('/assets/images/logo-watermark.png');
+    background-repeat: no-repeat;
+    background-position: 88% 50%;
+    background-size: 420px auto;
+    background-attachment: fixed;
 }
 
 .container {
@@ -47,7 +54,8 @@ body {
     justify-content: center;
     text-align: center;
     padding: 8rem 2rem 6rem;
-    background-color: var(--gala-bg);
+    /* No background-color here on purpose — the body's taupe color and
+       fixed watermark logo show through starting on the hero itself. */
 }
 
 .hero-brand {
@@ -340,6 +348,10 @@ body {
 
     .plan-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    body {
+        background-size: 280px auto;
     }
 }
 
