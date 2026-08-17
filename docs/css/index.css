@@ -1,234 +1,412 @@
-/* V1 */
+/* Gala landing page — V3 (redesign, matches brand deck) */
 
-#logo {
-    width: 400px;
+:root {
+    --gala-bg: #98806E;
+    --gala-bg-alt: #7E6858;
+    --gala-cream: #F5EEE4;
+    --gala-white: #FFFFFF;
+    --gala-dark: #1A1512;
+}
+
+/* Taupe is the persistent backdrop for the whole scroll — the hero sets
+   that tone, then the cream cards float on top of it as you scroll.
+   The watermark logo is fixed to the viewport (not the page), so it only
+   ever becomes visible through the gaps between cards as they scroll past. */
+body {
+    background-color: var(--gala-bg);
+    background-image: url('/assets/images/logo-watermark.png');
+    background-repeat: no-repeat;
+    background-position: 88% 50%;
+    background-size: 420px auto;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    align-items: stretch;
+    padding: 0 28px 44px;
+    gap: 44px;
+}
+
+/* Shared "bubble" card treatment for every card floating over the taupe
+   backdrop, instead of being separated by lines. */
+.showcase,
+.categories-section {
+    background-color: var(--gala-cream);
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.32),
+        0 16px 32px rgba(0, 0, 0, 0.22),
+        0 4px 10px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Hero (full-bleed tone setter, not a card) ---------- */
+
+.hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    /* No background-color here on purpose — the body's taupe color and
+       fixed watermark logo show through starting on the hero itself. */
+}
+
+.hero-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.wordmark-img {
+    height: 130px;
+    width: auto;
+    display: block;
+}
+
+.hero .tagline {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--gala-dark);
+    margin-top: 12px;
+    margin-bottom: 40px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.store-badges {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.store-badges .coming-soon-pill {
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--gala-bg);
+    background-color: var(--gala-cream);
+    border-radius: 20px;
+    padding: 8px 20px;
+    align-self: center;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* ---------- Statement on the taupe backdrop (not a card) ---------- */
+
+.backdrop-statement {
+    max-width: 720px;
+    margin: 24px auto;
+    padding: 3rem 2rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 1.85rem;
+    line-height: 1.4;
+    color: var(--gala-cream);
+    text-align: center;
+}
+
+/* ---------- Section heading / shared (now sit on cream cards) ---------- */
+
+.section-heading {
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    font-size: 2.75rem;
+    color: var(--gala-dark);
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.section-eyebrow {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gala-bg);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+/* ---------- Phone frame ---------- */
+
+.phone {
+    width: 240px;
+    border-radius: 34px;
+    border: 8px solid var(--gala-dark);
+    background-color: var(--gala-dark);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.phone img {
+    display: block;
+    width: 100%;
     height: auto;
 }
 
-.container {
+/* ---------- Showcase (simplicity) section ---------- */
+
+.showcase {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+}
+
+.showcase-phones {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 56px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+}
+
+.showcase-phones .phone {
+    width: 200px;
+}
+
+.showcase-arrow {
+    width: 48px;
+    height: 48px;
+    color: var(--gala-bg);
+    opacity: 0.8;
+    flex-shrink: 0;
+}
+
+/* ---------- Category photo grid ---------- */
+
+.categories-section {
+    padding: 6rem 2rem;
+}
+
+.categories-section .section-heading {
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.25rem;
+    line-height: 1.3;
+}
+
+.categories-grid {
+    max-width: 1100px;
+    margin: 56px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.category-card {
     position: relative;
-}
-
-#wave {
-    position: absolute;
-    width: 100vw;
-    bottom: -350px;
-    z-index: -1;
-    opacity: .7;
-}
-
-.btn i {
-    margin-right: 8px;
-    font-size: 18px;
-}
-
-@media only screen and (max-width: 600px) {
-    h1 {
-        font-size: 26px;
-    }
-    p {
-        font-size: 14px;
-    }
-    #logo {
-        width: 250px;
-        height: auto;
-    }
-    .btn {
-        width: 100%;
-    }
-    .btn-image img {
-        width: 100px;
-    }
-}
-
-/* V2 */
-
-.container {
-    max-width: none;
-    align-items: stretch;
-}
-
-.hero-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100vh;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.15), 0 12px 48px rgba(0, 0, 0, 0.35);
-    /* box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35); */
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
 }
 
-#hero {
+.category-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-#navbar {
+.category-card::after {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-    padding: 20px 24px;
-    display: flex;
-    align-items: center;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 55%);
 }
 
-#nav-logo {
-    max-height: 40px;
-}
-
-.nav-actions {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    display: none;
-}
-
-.coming-soon {
-    font-family: "Zain", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 30px;
-    margin-bottom: 8px;
-    color: #A28B81;
-    line-height: 55px;
-    text-align: center;
-}
-
-.c1 {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background-color: #E4D7C3;
-}
-
-.c2 {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background-color: #E4D7C3;
-}
-
-.c2 .display-large {
-    max-width: 680px;
-}
-
-.c3 {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.15), 0 12px 48px rgba(0, 0, 0, 0.35);
-}
-
-.c3 img {
-    display: block;
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-}
-
-.marketplace {
+.category-card span {
     position: absolute;
-    bottom: 84px;
-    left: 84px;
+    left: 16px;
+    bottom: 16px;
     z-index: 1;
-    color: #E4D7C3;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gala-white);
+}
+
+/* ---------- Plan the way you want to (heading on backdrop, cards float individually) ---------- */
+
+.plan-section {
+    padding: 7rem 2rem 0;
+}
+
+.plan-heading {
+    color: var(--gala-white);
     text-align: left;
+    font-size: 3.75rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.talent {
-    position: absolute;
-    bottom: 84px;
-    left: 84px;
-    z-index: 1;
+.plan-grid {
+    max-width: 1200px;
+    margin: 48px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
+
+.plan-card {
+    background-color: var(--gala-cream);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow:
+        0 24px 50px rgba(0, 0, 0, 0.22),
+        0 8px 18px rgba(0, 0, 0, 0.14);
+}
+
+.plan-card-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plan-card-icon svg {
+    width: 44px;
+    height: 44px;
+    filter: drop-shadow(0 3px 5px rgba(26, 21, 18, 0.3));
+}
+
+.plan-card-title {
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--gala-dark);
+    margin: 0 0 10px;
+}
+
+.plan-card-desc {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--gala-bg);
+    margin: 0;
+}
+
+/* ---------- Footer (sits right on the taupe backdrop, not a card) ---------- */
 
 .c4 {
     position: relative;
-    height: 100vh;
+    padding: 2rem 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    background-color: #E4D7C3;
 }
 
 #bottom-navbar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    position: static;
     width: 100%;
-    z-index: 10;
-    padding: 20px 24px;
+    max-width: 1100px;
+    margin-top: 2rem;
+    padding: 20px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #A28B81;
+    color: var(--gala-white);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#bottom-nav-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 0.8rem;
-}
-
+#bottom-nav-left a,
 #bottom-nav-left span {
-    color: inherit;
+    color: var(--gala-white);
 }
 
-#bottom-nav-left a {
-    font-size: 0.8rem;
-    margin-top: 0;
-    color: inherit;
-    opacity: 0.8;
-}
+/* ---------- Responsive ---------- */
 
-#bottom-nav-logo {
-    height: 30px;
+@media only screen and (max-width: 900px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .plan-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    body {
+        background-size: 280px auto;
+    }
 }
 
 @media only screen and (max-width: 600px) {
-    #navbar {
-        flex-wrap: wrap;
+    .plan-section {
+        padding-top: 4rem;
+    }
+
+    .plan-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wordmark-img {
+        height: 68px;
+    }
+
+    .section-heading {
+        font-size: 2rem;
+    }
+
+    .plan-heading {
+        font-size: 2.25rem;
+    }
+
+    .backdrop-statement {
+        font-size: 1.4rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .hero {
+        padding: 6rem 1.5rem 4rem;
+    }
+
+    .phone {
+        width: 190px;
+    }
+
+    .showcase-phones {
         gap: 12px;
     }
 
-    .nav-actions {
-        width: 100%;
-        justify-content: flex-start;
-        margin-left: 0;
+    .showcase-arrow {
+        width: 40px;
+        height: 40px;
+        transform: rotate(90deg);
     }
-    .display-large {
-        font-size: 30px;
-        line-height: 45px;
-    }
-    .talent, .marketplace {
-        left: 44px;
-    }
-    .coming-soon {
-        font-size: 25px;
-    }
-}
 
-@media only screen and (max-width: 400px) {
     #bottom-navbar {
-        flex-direction: column-reverse;
-        align-items: flex-start;
-        gap: 8px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
     }
 
     #bottom-nav-left {
-        flex-wrap: wrap;
-        row-gap: 4px;
+        flex-direction: column;
+        gap: 6px;
     }
 }
