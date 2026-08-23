@@ -357,11 +357,34 @@ body {
 
 @media only screen and (max-width: 600px) {
     .plan-section {
-        padding-top: 4rem;
+        padding: 4rem 1rem 0;
     }
 
     .plan-grid {
-        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .plan-card {
+        padding: 16px;
+    }
+
+    .plan-card-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+    }
+
+    .plan-card-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .plan-card-title {
+        font-size: 1.25rem;
+    }
+
+    .plan-card-desc {
+        font-size: 0.9rem;
     }
 
     .wordmark-img {
@@ -403,18 +426,25 @@ body {
         padding: 6rem 1.5rem 4rem;
     }
 
-    .phone {
-        width: 190px;
+    .showcase {
+        padding: 3rem 1rem;
     }
 
     .showcase-phones {
-        gap: 12px;
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+
+    .showcase-phones .phone {
+        width: 90px;
+        border-width: 4px;
+        border-radius: 16px;
     }
 
     .showcase-arrow {
-        width: 40px;
-        height: 40px;
-        transform: rotate(90deg);
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
     }
 
     #bottom-navbar {
