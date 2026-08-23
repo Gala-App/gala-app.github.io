@@ -9,19 +9,29 @@
 }
 
 /* Taupe is the persistent backdrop for the whole scroll — the hero sets
-   that tone, then the cream cards float on top of it as you scroll.
-   The watermark logo is fixed to the viewport (not the page), so it only
-   ever becomes visible through the gaps between cards as they scroll past. */
+   that tone, then the cream cards float on top of it as you scroll. */
 body {
     background-color: var(--gala-bg);
+}
+
+/* The watermark logo is a real fixed-position element (not a CSS fixed
+   background — background-attachment:fixed is unreliable/invisible on iOS
+   Safari). It sits behind everything and only shows through the gaps
+   between cards as they scroll past. */
+.bg-watermark {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
     background-image: url('/assets/images/logo-watermark.png');
     background-repeat: no-repeat;
     background-position: 88% 50%;
     background-size: 420px auto;
-    background-attachment: fixed;
 }
 
 .container {
+    position: relative;
+    z-index: 1;
     max-width: 1500px;
     margin: 0 auto;
     align-items: stretch;
@@ -47,6 +57,7 @@ body {
 
 .hero {
     position: relative;
+    z-index: 1;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -350,18 +361,41 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    body {
+    .bg-watermark {
         background-size: 280px auto;
     }
 }
 
 @media only screen and (max-width: 600px) {
     .plan-section {
-        padding-top: 4rem;
+        padding: 4rem 1rem 0;
     }
 
     .plan-grid {
-        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .plan-card {
+        padding: 16px;
+    }
+
+    .plan-card-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+    }
+
+    .plan-card-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+
+    .plan-card-title {
+        font-size: 1.25rem;
+    }
+
+    .plan-card-desc {
+        font-size: 0.9rem;
     }
 
     .wordmark-img {
@@ -370,6 +404,24 @@ body {
 
     .section-heading {
         font-size: 2rem;
+    }
+
+    .categories-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .categories-section .section-heading {
+        font-size: 1.5rem;
+        line-height: 1.35;
+    }
+
+    .categories-grid {
+        gap: 12px;
+    }
+
+    .category-card span {
+        font-size: 0.8rem;
+        left: 10px;
     }
 
     .plan-heading {
@@ -385,18 +437,25 @@ body {
         padding: 6rem 1.5rem 4rem;
     }
 
-    .phone {
-        width: 190px;
+    .showcase {
+        padding: 3rem 1rem;
     }
 
     .showcase-phones {
-        gap: 12px;
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+
+    .showcase-phones .phone {
+        width: 90px;
+        border-width: 4px;
+        border-radius: 16px;
     }
 
     .showcase-arrow {
-        width: 40px;
-        height: 40px;
-        transform: rotate(90deg);
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
     }
 
     #bottom-navbar {
