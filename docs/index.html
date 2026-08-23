@@ -24,6 +24,11 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
+    <!-- Fixed watermark logo, as its own element rather than a CSS fixed
+         background — background-attachment:fixed is unreliable on iOS Safari,
+         a real position:fixed element works everywhere. -->
+    <div class="bg-watermark" aria-hidden="true"></div>
+
     <!-- Hero: full-bleed tone setter, not a card -->
     <section class="hero">
         <div class="hero-brand">

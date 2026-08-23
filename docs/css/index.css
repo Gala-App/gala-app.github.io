@@ -9,19 +9,29 @@
 }
 
 /* Taupe is the persistent backdrop for the whole scroll — the hero sets
-   that tone, then the cream cards float on top of it as you scroll.
-   The watermark logo is fixed to the viewport (not the page), so it only
-   ever becomes visible through the gaps between cards as they scroll past. */
+   that tone, then the cream cards float on top of it as you scroll. */
 body {
     background-color: var(--gala-bg);
+}
+
+/* The watermark logo is a real fixed-position element (not a CSS fixed
+   background — background-attachment:fixed is unreliable/invisible on iOS
+   Safari). It sits behind everything and only shows through the gaps
+   between cards as they scroll past. */
+.bg-watermark {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
     background-image: url('/assets/images/logo-watermark.png');
     background-repeat: no-repeat;
     background-position: 88% 50%;
     background-size: 420px auto;
-    background-attachment: fixed;
 }
 
 .container {
+    position: relative;
+    z-index: 1;
     max-width: 1500px;
     margin: 0 auto;
     align-items: stretch;
@@ -47,6 +57,7 @@ body {
 
 .hero {
     position: relative;
+    z-index: 1;
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -350,7 +361,7 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    body {
+    .bg-watermark {
         background-size: 280px auto;
     }
 }
