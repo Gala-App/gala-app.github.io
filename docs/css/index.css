@@ -372,6 +372,24 @@ body {
         font-size: 2rem;
     }
 
+    .categories-section {
+        padding: 4rem 1.25rem;
+    }
+
+    .categories-section .section-heading {
+        font-size: 1.5rem;
+        line-height: 1.35;
+    }
+
+    .categories-grid {
+        gap: 12px;
+    }
+
+    .category-card span {
+        font-size: 0.8rem;
+        left: 10px;
+    }
+
     .plan-heading {
         font-size: 2.25rem;
     }
