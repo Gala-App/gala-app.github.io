@@ -18,58 +18,67 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#98806E">
+    <meta name="theme-color" content="#212121">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <!-- Fixed watermark logo, as its own element rather than a CSS fixed
-         background — background-attachment:fixed is unreliable on iOS Safari,
-         a real position:fixed element works everywhere. -->
-    <div class="bg-watermark" aria-hidden="true"></div>
-
     <!-- Hero: full-bleed tone setter, not a card -->
     <section class="hero">
+        <!-- Top buttons. Destinations not decided yet, so they go nowhere for now. -->
+        <nav class="top-nav" aria-label="Main">
+            <a class="top-nav-btn" href="#">Contact</a>
+            <a class="top-nav-btn" href="#">About</a>
+        </nav>
         <div class="hero-brand">
-            <img src="/assets/images/gala-wordmark.png" alt="Gala" class="wordmark-img">
+            <img src="/assets/images/gala-wordmark-cream.svg" alt="Gala" class="wordmark-img">
         </div>
-        <p class="tagline">Plan Less. Experience More.</p>
-        <div class="store-badges">
-            <span class="coming-soon-pill">Coming Soon</span>
+    </section>
+
+    <!-- Colorful tiles under the hero (new brand, draft). The wavy shape is from
+         marketing's SVG; it clips the cream badge so a photo can show inside it
+         when the mouse is over it. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <clipPath id="wiggle-blob" clipPathUnits="objectBoundingBox">
+                <path transform="scale(0.0037037)" d="M200.59 33.48C208.07 40.5025 206.987 50.535 213.74 57.9425C217.725 62.825 224.452 65.6975 230.002 68.935C234.182 71.415 237.6 74.8325 240.175 79.3425C245.407 88.61 248.49 99.7625 248.83 109.832C249.21 119.497 243.525 127.965 245.067 137.515C246.225 145.042 250.08 152.05 249.997 159.765C249.395 174.95 242.79 191.367 228.182 199.845L227.958 199.98C210.937 208.91 212.177 217.062 203.01 229.717C194.42 240.585 176.283 251.357 162.66 249.857C152.883 248.697 145.117 241.952 134.75 242.527C123.272 242.617 113.862 250.36 102.13 248.385C88.8725 246.692 72.6525 239.165 65.67 228.93C61.2225 222.492 60.3875 214.67 54.5825 208.81C48.435 202.217 38.19 199.395 32.305 192.647C24.1225 183.397 18.9525 167.913 20.175 156.073C21.0225 148.617 25.385 141.807 25.305 134.215C25.38 127.087 22.0125 120.205 20.9475 113.152C18.6425 99.2325 24.765 83.1025 35.03 73.8325C50.785 61.6575 55.57 64.0825 60.97 44.5325C65.8175 29.915 85.255 18.78 104.057 20.2775C116.117 21.195 126.932 26.925 139.317 25.2775C147.105 24.6125 153.495 21.4025 161.07 20.3475C175.455 18.3925 191.873 24.9125 200.585 33.48L200.59 33.48Z"/>
+            </clipPath>
+        </defs>
+    </svg>
+    <section class="tiles" aria-label="What you can book">
+        <div class="tile tile--navy">
+            <div class="tile-blob">
+                <img class="tile-photo" src="/assets/images/category-bartenders.jpg" alt="Bartender pouring craft cocktails" loading="lazy">
+                <span class="tile-label tile-label--orange">Bartenders</span>
+            </div>
+        </div>
+        <div class="tile tile--yellow">
+            <div class="tile-blob">
+                <img class="tile-photo" src="/assets/images/category-food-vendors.jpg" alt="Catering: tacos with a lime garnish" loading="lazy">
+                <span class="tile-label tile-label--green">Catering</span>
+            </div>
+        </div>
+        <div class="tile tile--green">
+            <div class="tile-blob">
+                <img class="tile-photo" src="/assets/images/category-music-artists.jpg" alt="DJ performing behind a record wall" loading="lazy">
+                <span class="tile-label tile-label--navy">Music Artists</span>
+            </div>
+        </div>
+        <div class="tile tile--orange">
+            <div class="tile-blob">
+                <img class="tile-photo" src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night" loading="lazy">
+                <span class="tile-label tile-label--navy">Entertainment</span>
+            </div>
         </div>
     </section>
 
     <div class="container">
 
-        <!-- Category photos -->
-        <section class="categories-section">
-            <p class="section-eyebrow">Browse by category</p>
-            <h2 class="section-heading">The premier marketplace for independent culinary, bar, and entertainment talent.</h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <img src="/assets/images/category-bartenders.jpg" alt="Bartender pouring craft cocktails">
-                    <span>Bartenders</span>
-                </div>
-                <div class="category-card">
-                    <img src="/assets/images/category-food-vendors.jpg" alt="Chef plating tacos with a lime garnish">
-                    <span>Catering</span>
-                </div>
-                <div class="category-card">
-                    <img src="/assets/images/category-music-artists.jpg" alt="DJ performing behind a record wall">
-                    <span>Music Artists</span>
-                </div>
-                <div class="category-card">
-                    <img src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night">
-                    <span>Entertainment</span>
-                </div>
-            </div>
-        </section>
-
         <!-- Statement, sits directly on the taupe backdrop, not a card -->
-        <p class="backdrop-statement">Your bridge between unforgettable nights and the professionals who make them happen.</p>
+        <p class="backdrop-statement">Plan Less. Experience More.</p>
 
         <!-- Browse. Book. Done. -->
         <section class="showcase">
