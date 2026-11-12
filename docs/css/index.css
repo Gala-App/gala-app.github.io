@@ -20,22 +20,16 @@ body {
     max-width: 1500px;
     margin: 0 auto;
     align-items: stretch;
-    padding: 0 28px 44px;
-    gap: 44px;
+    padding: 0 28px 96px;
+    gap: 96px;
 }
 
 /* Shared "bubble" card treatment for every card floating over the taupe
    backdrop, instead of being separated by lines. */
-.showcase,
 .categories-section {
-    background-color: var(--gala-cream);
+    background-color: #EFE5D8;
     border-radius: 32px;
     overflow: hidden;
-    box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.32),
-        0 16px 32px rgba(0, 0, 0, 0.22),
-        0 4px 10px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 /* ---------- Hero (full-bleed tone setter, not a card) ---------- */
@@ -113,30 +107,38 @@ body {
 
 .top-nav {
     position: absolute;
-    top: 28px;
-    right: 36px;
+    top: 30px;
+    right: 40px;
     display: flex;
-    gap: 12px;
+    gap: 32px;
     z-index: 2;
 }
 
 .top-nav-btn {
     margin-top: 0;
     font-family: "Nunito", "Inter", sans-serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 700;
     font-size: 1rem;
     color: #EFE5D8;
-    padding: 10px 24px;
-    border: 1.5px solid #EFE5D8;
-    border-radius: 999px;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.25s ease;
 }
 
 .top-nav-btn:hover {
-    background-color: #EFE5D8;
-    color: #000;
+    border-bottom-color: #EFE5D8;
     text-decoration: none;
+}
+
+/* Small black badge logo, top-left corner of the hero */
+.corner-logo {
+    position: absolute;
+    top: 20px;
+    left: 36px;
+    width: 64px;
+    height: 64px;
+    z-index: 2;
 }
 
 /* ---------- Colorful tiles under the hero (new brand, draft) ---------- */
@@ -146,13 +148,12 @@ body {
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background-color: #000;
 }
 
 .tile {
     position: relative;
     aspect-ratio: 1 / 1;
-    border-radius: 28px 28px 0 0;
+    border-radius: 28px;
     overflow: hidden;
 }
 
@@ -228,7 +229,7 @@ body {
     font-weight: 900;
     font-size: 2.6rem;
     line-height: 1.2;
-    color: var(--gala-cream);
+    color: #FFFFFF;
     text-align: center;
 }
 
@@ -237,8 +238,8 @@ body {
 .section-heading {
     font-family: "Inter", sans-serif;
     font-weight: 800;
-    font-size: 2.75rem;
-    color: var(--gala-dark);
+    font-size: 3.5rem;
+    color: #EFE5D8;
     text-align: center;
     margin-bottom: 0;
 }
@@ -259,8 +260,8 @@ body {
 .phone {
     width: 240px;
     border-radius: 34px;
-    border: 8px solid var(--gala-dark);
-    background-color: var(--gala-dark);
+    border: 8px solid #000;
+    background-color: #000;
     overflow: hidden;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
@@ -274,13 +275,17 @@ body {
 
 /* ---------- Showcase (simplicity) section ---------- */
 
+.showcase .section-heading {
+    color: #FFFFFF;
+}
+
 .showcase {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 6rem 2rem;
+    padding: 8rem 2rem;
 }
 
 .showcase-phones {
@@ -300,8 +305,8 @@ body {
 .showcase-arrow {
     width: 48px;
     height: 48px;
-    color: var(--gala-bg);
-    opacity: 0.8;
+    color: #212121;
+    opacity: 0.55;
     flex-shrink: 0;
 }
 
@@ -360,67 +365,124 @@ body {
     color: var(--gala-white);
 }
 
+/* "Browse. Book. Done." plays once when it scrolls into view: the word is
+   made of tiny dots that scatter and reform into the next word. Without the
+   script (or with reduced motion) the plain text shows. */
+.bbd {
+    width: 100%;
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    line-height: 1.1;
+    color: #FFFFFF;
+}
+
+.bbd-canvas {
+    display: none;
+    width: 100%;
+}
+
+.bbd.is-animated .bbd-static {
+    display: none;
+}
+
+.bbd.is-animated .bbd-canvas {
+    display: block;
+}
+
 /* ---------- Plan the way you want to (heading on backdrop, cards float individually) ---------- */
 
 .plan-section {
-    padding: 7rem 2rem 0;
+    padding: 7rem 0 0;
 }
 
 .plan-heading {
+    /* Omnes Black is not licensed yet, so Nunito Black stands in. */
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 900;
     color: var(--gala-white);
     text-align: left;
     font-size: 3.75rem;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.plan-grid {
+/* Big-type list: hover (or tap) a line to see its photo and description. */
+.plan-list {
+    position: relative;
     max-width: 1200px;
     margin: 48px auto 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    padding: 0 2rem;
+    list-style: none;
 }
 
-.plan-card {
-    background-color: var(--gala-cream);
-    border-radius: 24px;
-    padding: 28px;
-    box-shadow:
-        0 24px 50px rgba(0, 0, 0, 0.22),
-        0 8px 18px rgba(0, 0, 0, 0.14);
-}
-
-.plan-card-icon {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 20px;
+.plan-row {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    align-items: baseline;
+    width: 56%;
+    padding: 26px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    outline: none;
+    cursor: default;
 }
 
-.plan-card-icon svg {
-    width: 44px;
-    height: 44px;
-    filter: drop-shadow(0 3px 5px rgba(26, 21, 18, 0.3));
+.plan-row:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
-.plan-card-title {
+.plan-row-num {
+    flex: 0 0 56px;
     font-family: "Inter", sans-serif;
-    font-weight: 800;
-    font-size: 1.6rem;
-    color: var(--gala-dark);
-    margin: 0 0 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.plan-card-desc {
+.plan-row-title {
+    margin: 0;
+    /* Omnes Regular is not licensed yet, so Nunito Regular stands in. */
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 4.6vw, 4.25rem);
+    line-height: 1.05;
+    color: rgba(255, 255, 255, 0.38);
+    transition: color 0.3s ease;
+}
+
+.plan-row.is-active .plan-row-title,
+.plan-row:focus-visible .plan-row-title {
+    color: #FFFFFF;
+}
+
+.plan-detail {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    width: 38%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.plan-row.is-active .plan-detail {
+    opacity: 1;
+}
+
+.plan-detail img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.plan-detail p {
+    margin: 16px 0 0;
     font-family: "Inter", sans-serif;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1.5;
-    color: var(--gala-bg);
-    margin: 0;
+    color: #FFFFFF;
 }
 
 /* ---------- Footer (sits right on the taupe backdrop, not a card) ---------- */
@@ -459,42 +521,40 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .plan-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
 }
 
 @media only screen and (max-width: 600px) {
     .plan-section {
-        padding: 4rem 1rem 0;
+        padding: 4rem 0 0;
     }
 
-    .plan-grid {
-        gap: 12px;
+    .plan-list {
+        padding: 0 1.25rem;
     }
 
-    .plan-card {
-        padding: 16px;
+    .plan-row {
+        width: 100%;
     }
 
-    .plan-card-icon {
-        width: 36px;
-        height: 36px;
-        margin-bottom: 12px;
+    .plan-row-num {
+        flex-basis: 40px;
     }
 
-    .plan-card-icon svg {
-        width: 36px;
-        height: 36px;
+    .plan-detail {
+        position: static;
+        flex: 0 0 100%;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.4s ease, opacity 0.35s ease;
     }
 
-    .plan-card-title {
-        font-size: 1.25rem;
-    }
-
-    .plan-card-desc {
-        font-size: 0.9rem;
+    .plan-row.is-active .plan-detail {
+        max-height: 560px;
+        opacity: 1;
+        pointer-events: auto;
+        padding-top: 16px;
     }
 
     .wordmark-img {
@@ -581,13 +641,19 @@ body {
 
 @media only screen and (max-width: 600px) {
     .top-nav {
-        top: 18px;
-        right: 16px;
-        gap: 8px;
+        top: 20px;
+        right: 20px;
+        gap: 22px;
     }
 
     .top-nav-btn {
-        font-size: 0.9rem;
-        padding: 8px 16px;
+        font-size: 0.95rem;
+    }
+
+    .corner-logo {
+        top: 12px;
+        left: 16px;
+        width: 52px;
+        height: 52px;
     }
 }
