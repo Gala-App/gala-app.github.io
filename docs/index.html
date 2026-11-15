@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#212121">
+    <meta name="theme-color" content="#FFFFFF">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
             <a class="top-nav-btn" href="#">About</a>
         </nav>
         <div class="hero-brand">
-            <img src="/assets/images/gala-wordmark-cream.svg" alt="Gala" class="wordmark-img">
+            <img src="/assets/images/gala-wordmark-black.svg" alt="Gala" class="wordmark-img">
         </div>
     </section>
 
@@ -50,6 +50,24 @@
             </clipPath>
         </defs>
     </svg>
+
+    <!-- Photo under the tiles with the tagline on top. Drag the slider left and
+         right: left of the line is black and white, right of it is full color. -->
+    <section class="compare" id="compare" aria-label="Photo slider from black and white to color">
+        <img class="compare-img" src="/assets/images/hero-martinis.jpg" alt="Two martinis clinking at a candlelit table" loading="lazy">
+        <div class="compare-bw">
+            <img class="compare-img compare-img--bw" src="/assets/images/hero-martinis.jpg" alt="" loading="lazy">
+        </div>
+        <p class="compare-statement">Plan Less. Experience More.</p>
+        <div class="compare-handle" role="slider" tabindex="0" aria-label="Black and white to color"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="compare-line"></span>
+            <span class="compare-grip" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#212121" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6"/><path d="M15 6l6 6-6 6"/></svg>
+            </span>
+        </div>
+    </section>
+
     <section class="tiles" aria-label="What you can book">
         <div class="tile tile--navy">
             <div class="tile-blob">
@@ -78,73 +96,6 @@
     </section>
 
     <div class="container">
-
-        <!-- Statement, sits directly on the taupe backdrop, not a card -->
-        <p class="backdrop-statement">Plan Less. Experience More.</p>
-
-        <!-- Browse. Book. Done. -->
-        <section class="showcase">
-            <h2 class="section-heading bbd" id="bbd">
-                <span class="bbd-static">Browse. Book. Done.</span>
-                <canvas class="bbd-canvas" aria-hidden="true"></canvas>
-            </h2>
-        </section>
-
-        <!-- Plan the way you want to: heading on the taupe backdrop,
-             individual floating cards below (not one big card) -->
-        <section class="plan-section">
-            <h2 class="section-heading plan-heading">Plan it your way</h2>
-            <ul class="plan-list" id="plan-list">
-                <li class="plan-row is-active" tabindex="0">
-                    <span class="plan-row-num">01</span>
-                    <h3 class="plan-row-title">Raise the bar</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/hero-shots.jpg" alt="Shots with orange slices lined up on a bar" loading="lazy">
-                        <p>Need one bartender? Ten? We'll keep them coming.</p>
-                    </div>
-                </li>
-                <li class="plan-row" tabindex="0">
-                    <span class="plan-row-num">02</span>
-                    <h3 class="plan-row-title">Serve it up</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/category-food-vendors.jpg" alt="Tacos with a lime garnish" loading="lazy">
-                        <p>Tell us what you're craving, we'll handle the rest.</p>
-                    </div>
-                </li>
-                <li class="plan-row" tabindex="0">
-                    <span class="plan-row-num">03</span>
-                    <h3 class="plan-row-title">Cue the noise</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/category-music-artists.jpg" alt="DJ performing behind a record wall" loading="lazy">
-                        <p>DJ, live band, or something in between? You set the tone.</p>
-                    </div>
-                </li>
-                <li class="plan-row" tabindex="0">
-                    <span class="plan-row-num">04</span>
-                    <h3 class="plan-row-title">Bring the heat</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night" loading="lazy">
-                        <p>Performers who know how to make an entrance.</p>
-                    </div>
-                </li>
-                <li class="plan-row" tabindex="0">
-                    <span class="plan-row-num">05</span>
-                    <h3 class="plan-row-title">Keep them talking</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/category-bartenders.jpg" alt="Craft cocktails on a bar" loading="lazy">
-                        <p>Mix, match, and make it unforgettable.</p>
-                    </div>
-                </li>
-                <li class="plan-row" tabindex="0">
-                    <span class="plan-row-num">06</span>
-                    <h3 class="plan-row-title">Go all out</h3>
-                    <div class="plan-detail">
-                        <img src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night" loading="lazy">
-                        <p>Build your dream lineup for a night to remember.</p>
-                    </div>
-                </li>
-            </ul>
-        </section>
 
         <!-- Footer -->
         <footer class="c4" id="last-section">

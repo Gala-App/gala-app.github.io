@@ -6,12 +6,15 @@
     --gala-cream: #F5EEE4;
     --gala-white: #FFFFFF;
     --gala-dark: #1A1512;
+    /* New page colors: off white background, off black text */
+    --page-bg: #FFFFFF;
+    --page-ink: #212121;
 }
 
 /* Taupe is the persistent backdrop for the whole scroll — the hero sets
    that tone, then the cream cards float on top of it as you scroll. */
 body {
-    background-color: #212121;
+    background-color: var(--page-bg);
 }
 
 .container {
@@ -44,16 +47,8 @@ body {
     justify-content: center;
     text-align: center;
     padding: 8rem 2rem 6rem;
-    /* New brand: full-bleed photo with a soft black gradient over it,
-       cream wordmark on top (draft, step 1). */
-    background-color: #000000;
-    background-image:
-        radial-gradient(ellipse 45% 55% at 50% 50%, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.3) 45%, rgba(0, 0, 0, 0.7) 100%),
-        url('/assets/images/hero-shots.jpg');
-    background-size: cover;
-    background-position: center 72%;
-    background-repeat: no-repeat;
+    /* Plain white hero: just the black wordmark. */
+    background-color: var(--page-bg);
 }
 
 .hero-brand {
@@ -117,17 +112,17 @@ body {
 .top-nav-btn {
     margin-top: 0;
     font-family: "Nunito", "Inter", sans-serif;
-    font-style: normal;
+    font-style: italic;
     font-weight: 700;
     font-size: 1rem;
-    color: #EFE5D8;
+    color: var(--page-ink);
     padding: 4px 0;
     border-bottom: 2px solid transparent;
     transition: border-color 0.25s ease;
 }
 
 .top-nav-btn:hover {
-    border-bottom-color: #EFE5D8;
+    border-bottom-color: var(--page-ink);
     text-decoration: none;
 }
 
@@ -146,6 +141,7 @@ body {
 .tiles {
     position: relative;
     z-index: 1;
+    margin-top: 56px;             /* space between the photo and the colorful tiles */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
@@ -162,8 +158,9 @@ body {
 .tile--green { background-color: #008A4B; }
 .tile--orange { background-color: #F25A0A; }
 
-/* The cream wavy badge. clip-path also limits where the mouse counts as
-   "over" it, so the photo only appears when hovering the badge itself. */
+/* The cream wavy badge. It shows a photo; when the mouse is over the badge the
+   photo fades away and the category name shows on the cream. (clip-path also
+   limits where the mouse counts as "over" it, so only the badge itself reacts.) */
 .tile-blob {
     position: absolute;
     inset: 0;
@@ -180,22 +177,12 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.tile-blob::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.tile-blob:hover .tile-photo,
-.tile-blob:hover::after {
     opacity: 1;
+    transition: opacity 0.35s ease;
+}
+
+.tile-blob:hover .tile-photo {
+    opacity: 0;
 }
 
 .tile-label {
@@ -207,11 +194,12 @@ body {
     font-size: clamp(1rem, 2vw, 1.75rem);
     text-align: center;
     padding: 0 12%;
-    transition: color 0.35s ease;
+    opacity: 0;
+    transition: opacity 0.35s ease;
 }
 
 .tile-blob:hover .tile-label {
-    color: #EFE5D8;
+    opacity: 1;
 }
 
 .tile-label--orange { color: #F25A0A; }
@@ -229,8 +217,119 @@ body {
     font-weight: 900;
     font-size: 2.6rem;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: var(--page-ink);
     text-align: center;
+}
+
+/* ---------- Photo slider under the tiles (black and white to color) ---------- */
+
+.compare {
+    position: relative;
+    z-index: 1;
+    height: min(82vh, 860px);
+    overflow: hidden;
+    background-color: #000;
+    cursor: ew-resize;
+    touch-action: pan-y;          /* sideways drags move the slider, up/down still scrolls the page */
+    user-select: none;
+    -webkit-user-select: none;
+    --pos: 50%;
+}
+
+.compare-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 52%;
+    pointer-events: none;
+}
+
+.compare-img--bw {
+    filter: grayscale(1);
+}
+
+/* Black-and-white copy: shows only to the left of the line. */
+.compare-bw {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+    pointer-events: none;
+}
+
+/* Soft dark wash so the white tagline reads on both halves. */
+.compare::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.38));
+    pointer-events: none;
+}
+
+.compare-statement {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 90%;
+    max-width: 900px;
+    margin: 0;
+    text-align: center;
+    pointer-events: none;
+    /* Omnes Black is not licensed yet, so Nunito Black stands in. */
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 900;
+    font-size: 2.6rem;
+    line-height: 1.2;
+    color: #FFFFFF;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* The slider: one white line across the full height, with a round grip. */
+.compare-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 0;
+    z-index: 3;
+    outline: none;
+}
+
+.compare-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1.5px;
+    width: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+}
+
+.compare-grip {
+    position: absolute;
+    top: 82%;                      /* low on the line so it stays clear of the tagline */
+    left: 0;
+    width: 52px;
+    height: 52px;
+    margin: -26px 0 0 -26px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compare-grip svg {
+    width: 26px;
+    height: 26px;
+}
+
+.compare-handle:focus-visible .compare-grip {
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.55), 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
 /* ---------- Section heading / shared (now sit on cream cards) ---------- */
@@ -253,61 +352,6 @@ body {
     color: var(--gala-bg);
     text-align: center;
     margin-bottom: 12px;
-}
-
-/* ---------- Phone frame ---------- */
-
-.phone {
-    width: 240px;
-    border-radius: 34px;
-    border: 8px solid #000;
-    background-color: #000;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-}
-
-.phone img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-/* ---------- Showcase (simplicity) section ---------- */
-
-.showcase .section-heading {
-    color: #FFFFFF;
-}
-
-.showcase {
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 2rem;
-}
-
-.showcase-phones {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 56px;
-    flex-wrap: wrap;
-    max-width: 1000px;
-}
-
-.showcase-phones .phone {
-    width: 200px;
-}
-
-.showcase-arrow {
-    width: 48px;
-    height: 48px;
-    color: #212121;
-    opacity: 0.55;
-    flex-shrink: 0;
 }
 
 /* ---------- Category photo grid ---------- */
@@ -365,126 +409,6 @@ body {
     color: var(--gala-white);
 }
 
-/* "Browse. Book. Done." plays once when it scrolls into view: the word is
-   made of tiny dots that scatter and reform into the next word. Without the
-   script (or with reduced motion) the plain text shows. */
-.bbd {
-    width: 100%;
-    font-size: clamp(3.5rem, 10vw, 8.5rem);
-    line-height: 1.1;
-    color: #FFFFFF;
-}
-
-.bbd-canvas {
-    display: none;
-    width: 100%;
-}
-
-.bbd.is-animated .bbd-static {
-    display: none;
-}
-
-.bbd.is-animated .bbd-canvas {
-    display: block;
-}
-
-/* ---------- Plan the way you want to (heading on backdrop, cards float individually) ---------- */
-
-.plan-section {
-    padding: 7rem 0 0;
-}
-
-.plan-heading {
-    /* Omnes Black is not licensed yet, so Nunito Black stands in. */
-    font-family: "Nunito", "Inter", sans-serif;
-    font-weight: 900;
-    color: var(--gala-white);
-    text-align: left;
-    font-size: 3.75rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* Big-type list: hover (or tap) a line to see its photo and description. */
-.plan-list {
-    position: relative;
-    max-width: 1200px;
-    margin: 48px auto 0;
-    padding: 0 2rem;
-    list-style: none;
-}
-
-.plan-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    width: 56%;
-    padding: 26px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
-    outline: none;
-    cursor: default;
-}
-
-.plan-row:last-child {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-}
-
-.plan-row-num {
-    flex: 0 0 56px;
-    font-family: "Inter", sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.plan-row-title {
-    margin: 0;
-    /* Omnes Regular is not licensed yet, so Nunito Regular stands in. */
-    font-family: "Nunito", "Inter", sans-serif;
-    font-weight: 400;
-    font-size: clamp(2.2rem, 4.6vw, 4.25rem);
-    line-height: 1.05;
-    color: rgba(255, 255, 255, 0.38);
-    transition: color 0.3s ease;
-}
-
-.plan-row.is-active .plan-row-title,
-.plan-row:focus-visible .plan-row-title {
-    color: #FFFFFF;
-}
-
-.plan-detail {
-    position: absolute;
-    top: 0;
-    right: 2rem;
-    width: 38%;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.35s ease;
-}
-
-.plan-row.is-active .plan-detail {
-    opacity: 1;
-}
-
-.plan-detail img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 20px;
-}
-
-.plan-detail p {
-    margin: 16px 0 0;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-    font-size: 1.15rem;
-    line-height: 1.5;
-    color: #FFFFFF;
-}
-
 /* ---------- Footer (sits right on the taupe backdrop, not a card) ---------- */
 
 .c4 {
@@ -505,13 +429,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--gala-white);
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--page-ink);
+    border-top: 1px solid rgba(33, 33, 33, 0.18);
 }
 
 #bottom-nav-left a,
 #bottom-nav-left span {
-    color: var(--gala-white);
+    color: var(--page-ink);
 }
 
 /* ---------- Responsive ---------- */
@@ -524,39 +448,6 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-    .plan-section {
-        padding: 4rem 0 0;
-    }
-
-    .plan-list {
-        padding: 0 1.25rem;
-    }
-
-    .plan-row {
-        width: 100%;
-    }
-
-    .plan-row-num {
-        flex-basis: 40px;
-    }
-
-    .plan-detail {
-        position: static;
-        flex: 0 0 100%;
-        width: 100%;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        transition: max-height 0.4s ease, opacity 0.35s ease;
-    }
-
-    .plan-row.is-active .plan-detail {
-        max-height: 560px;
-        opacity: 1;
-        pointer-events: auto;
-        padding-top: 16px;
-    }
-
     .wordmark-img {
         height: 190px;
     }
@@ -583,38 +474,31 @@ body {
         left: 10px;
     }
 
-    .plan-heading {
-        font-size: 2.25rem;
-    }
-
     .backdrop-statement {
         font-size: 1.9rem;
         padding: 2rem 1.5rem;
     }
 
+    .compare {
+        height: 62vh;
+    }
+
+    .tiles {
+        margin-top: 32px;
+    }
+
+    .compare-statement {
+        font-size: 1.9rem;
+    }
+
+    .compare-grip {
+        width: 44px;
+        height: 44px;
+        margin: -22px 0 0 -22px;
+    }
+
     .hero {
         padding: 6rem 1.5rem 4rem;
-    }
-
-    .showcase {
-        padding: 3rem 1rem;
-    }
-
-    .showcase-phones {
-        gap: 6px;
-        flex-wrap: nowrap;
-    }
-
-    .showcase-phones .phone {
-        width: 90px;
-        border-width: 4px;
-        border-radius: 16px;
-    }
-
-    .showcase-arrow {
-        width: 18px;
-        height: 18px;
-        flex-shrink: 0;
     }
 
     #bottom-navbar {
