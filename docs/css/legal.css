@@ -104,3 +104,135 @@ body {
     display: inline;
     margin-top: 0;
 }
+
+/* ---------- New brand look (only pages with <body class="legal-new">) ----------
+   White page, near-black text, new black "gala" wordmark top-left.
+   Terms and Support do not have this class yet, so they are unchanged. */
+
+.legal-new {
+    background-color: #FFFFFF;
+    color: #212121;
+}
+
+.legal-new #top-nav {
+    border-bottom-color: rgba(33, 33, 33, 0.1);
+}
+
+.legal-new #top-nav #nav-logo {
+    max-height: 56px;
+    width: auto;
+}
+
+.legal-new .legal-content h1,
+.legal-new .legal-content h2,
+.legal-new .legal-content h3,
+.legal-new .legal-content > p,
+.legal-new .legal-content p,
+.legal-new .legal-content li {
+    color: #212121;
+}
+
+.legal-new .last-updated {
+    color: rgba(33, 33, 33, 0.6);
+}
+
+.legal-new .legal-content a {
+    color: #212121;
+}
+
+.legal-new #legal-footer {
+    border-top-color: rgba(33, 33, 33, 0.1);
+    color: rgba(33, 33, 33, 0.6);
+}
+
+.legal-new #legal-footer a {
+    color: rgba(33, 33, 33, 0.6);
+}
+
+/* Page title in Nunito Black (stand-in for Omnes Black until it is licensed). */
+.legal-new .legal-content h1.title-nunito {
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 900;
+}
+
+/* ---------- Contact form ---------- */
+
+.legal-new .contact-form {
+    margin-top: 28px;
+    max-width: 560px;
+}
+
+.legal-new .contact-form .field {
+    margin-bottom: 22px;
+}
+
+.legal-new .contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #212121;
+}
+
+.legal-new .contact-form input,
+.legal-new .contact-form select,
+.legal-new .contact-form textarea {
+    width: 100%;
+    padding: 13px 15px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    color: #212121;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(33, 33, 33, 0.28);
+    border-radius: 12px;
+}
+
+.legal-new .contact-form textarea {
+    resize: vertical;
+    min-height: 140px;
+    line-height: 1.5;
+}
+
+.legal-new .contact-form input:focus,
+.legal-new .contact-form select:focus,
+.legal-new .contact-form textarea:focus {
+    outline: 2px solid #212121;
+    outline-offset: 1px;
+    border-color: #212121;
+}
+
+.legal-new .char-count {
+    margin-top: 6px;
+    text-align: right;
+    font-family: "Inter", sans-serif;
+    font-size: 0.8rem;
+    color: rgba(33, 33, 33, 0.6);
+}
+
+.legal-new .send-btn {
+    padding: 14px 34px;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #212121;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.legal-new .send-btn:hover {
+    background-color: #000000;
+}
+
+.legal-new .send-btn:focus-visible {
+    outline: 2px solid #212121;
+    outline-offset: 3px;
+}
+
+.legal-new .form-note {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: rgba(33, 33, 33, 0.6);
+}

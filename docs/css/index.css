@@ -164,7 +164,6 @@ body {
 .tiles {
     position: relative;
     z-index: 1;
-    margin-top: 56px;             /* space between the photo and the colorful tiles */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
@@ -181,14 +180,14 @@ body {
 .tile--green { background-color: #008A4B; }
 .tile--orange { background-color: #F25A0A; }
 
-/* The cream wavy badge. It shows a photo; when the mouse is over the badge the
-   photo fades away and the category name shows on the cream. (clip-path also
-   limits where the mouse counts as "over" it, so only the badge itself reacts.) */
+/* The cream wavy badge. It shows the category name; when the mouse is over the
+   badge a photo fades in. (clip-path also limits where the mouse counts as
+   "over" it, so only the badge itself reacts.) */
 .tile-blob {
     position: absolute;
     inset: 0;
     clip-path: url(#wiggle-blob);
-    background-color: #EFE5D8;
+    background-color: var(--page-bg);     /* same white as the page */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,12 +199,23 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.35s ease;
 }
 
-.tile-blob:hover .tile-photo {
+/* Soft dark wash over the photo so the cream name stays readable. */
+.tile-blob::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
     opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.tile-blob:hover .tile-photo,
+.tile-blob:hover::after {
+    opacity: 1;
 }
 
 .tile-label {
@@ -217,12 +227,11 @@ body {
     font-size: clamp(1rem, 2vw, 1.75rem);
     text-align: center;
     padding: 0 12%;
-    opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: color 0.35s ease;
 }
 
 .tile-blob:hover .tile-label {
-    opacity: 1;
+    color: #EFE5D8;
 }
 
 .tile-label--orange { color: #F25A0A; }
@@ -249,6 +258,7 @@ body {
 .compare {
     position: relative;
     z-index: 1;
+    margin-top: 56px;             /* space between the colorful tiles and the photo */
     height: min(82vh, 860px);
     overflow: hidden;
     background-color: #000;
@@ -265,7 +275,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 52%;
+    object-position: center 50%;
     pointer-events: none;
 }
 
@@ -432,6 +442,254 @@ body {
     color: var(--gala-white);
 }
 
+/* ---------- Browse. Book. Done. (phone screens that change as you scroll) ---------- */
+
+/* Without the script (or with reduced motion): the three words, then the three phones in a row. */
+.steps {
+    position: relative;
+    z-index: 1;
+    margin-top: 140px;            /* space between the colorful tiles and this section */
+    padding: 96px 28px 24px;
+    --phone-h: min(66vh, 680px);
+}
+
+.steps-stage {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.steps-words {
+    list-style: none;
+    margin: 0 0 48px;
+    padding: 0;
+}
+
+.step-title {
+    display: block;
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1.02;
+    color: var(--page-ink);
+}
+
+.step-caption {
+    display: block;
+    margin: 6px 0 22px;
+    max-width: 420px;
+    font-family: "Inter", sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(33, 33, 33, 0.7);
+}
+
+.phone-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+.phone-frame {
+    width: min(250px, 70vw);
+    aspect-ratio: 1320 / 2868;
+    border: 9px solid #212121;
+    border-radius: 40px;
+    background-color: #212121;
+    overflow: hidden;
+    box-shadow: 0 24px 50px rgba(33, 33, 33, 0.22);
+}
+
+.phone-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.steps-blob {
+    display: none;
+}
+
+/* With the script: a tall scene that stays in view while you scroll through it. */
+.steps.is-live {
+    height: 340vh;
+    padding: 0;
+}
+
+.steps.is-live .steps-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-width: 1200px;
+    padding: 0 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: 40px;
+}
+
+.steps.is-live .steps-words {
+    margin: 0;
+}
+
+.steps.is-live .step-word {
+    margin: 0 0 10px;
+}
+
+.steps.is-live .step-title {
+    color: rgba(33, 33, 33, 0.16);
+    transition: color 0.45s ease, transform 0.45s ease;
+}
+
+.steps.is-live .step-word.is-active .step-title {
+    color: var(--page-ink);
+    transform: translateX(14px);
+}
+
+.steps.is-live .step-caption {
+    max-height: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.45s ease, opacity 0.45s ease, margin 0.45s ease;
+}
+
+.steps.is-live .step-word.is-active .step-caption {
+    max-height: 120px;
+    margin: 4px 0 18px 14px;
+    opacity: 1;
+}
+
+.steps.is-live .steps-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* A big wavy badge shape behind the phone that changes color with each word. */
+.steps.is-live .steps-blob {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--phone-h) * 1.05);
+    height: calc(var(--phone-h) * 1.05);
+    margin: calc(var(--phone-h) * -0.525) 0 0 calc(var(--phone-h) * -0.525);
+    clip-path: url(#wiggle-blob);
+    background-color: #FFC400;
+    transition: background-color 0.6s ease, transform 0.8s ease;
+}
+
+.steps.is-live[data-step="1"] .steps-blob {
+    background-color: #F25A0A;
+    transform: rotate(40deg);
+}
+
+.steps.is-live[data-step="2"] .steps-blob {
+    background-color: #008A4B;
+    transform: rotate(80deg);
+}
+
+.steps.is-live .phone-set {
+    position: relative;
+    display: block;
+    height: var(--phone-h);
+    aspect-ratio: 1320 / 2868;
+    z-index: 1;
+}
+
+.steps.is-live .phone-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.steps.is-live .phone-frame.is-active {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---------- Download (closing call to action): one slim bar ---------- */
+
+.download {
+    position: relative;
+    z-index: 1;
+    padding: 112px 28px 48px;
+}
+
+.download-bar {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px 40px;
+    border-radius: 999px;
+    background-color: #212121;
+}
+
+.download-copy {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* The "g" badge, in white with a dark "g", to stand out on the dark bar. */
+.download-badge {
+    flex: 0 0 auto;
+    display: block;
+    height: 60px;
+    width: auto;
+}
+
+.download-title {
+    margin: 0;
+    font-family: "Nunito", "Inter", sans-serif;
+    font-weight: 900;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    color: #FFFFFF;
+}
+
+.download-text {
+    margin: 4px 0 0;
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.download-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.store-link {
+    display: inline-block;
+    margin: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.store-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.store-link img {
+    display: block;
+    height: 46px;
+    width: auto;
+}
+
 /* ---------- Footer (sits right on the taupe backdrop, not a card) ---------- */
 
 .c4 {
@@ -504,14 +762,60 @@ body {
 
     .compare {
         height: 62vh;
-    }
-
-    .tiles {
         margin-top: 32px;
     }
 
     .compare-statement {
         font-size: 1.9rem;
+    }
+
+    .steps {
+        margin-top: 80px;
+        padding: 56px 20px 16px;
+    }
+
+    .download {
+        padding: 72px 16px 32px;
+    }
+
+    .download-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 22px;
+        border-radius: 28px;
+    }
+
+    .download-title {
+        font-size: 1.6rem;
+    }
+
+    .store-link img {
+        height: 44px;
+    }
+
+    .steps.is-live {
+        --phone-h: 44vh;
+    }
+
+    .steps.is-live .steps-stage {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        align-content: center;
+        row-gap: 18px;
+        padding: 0 20px;
+    }
+
+    .steps.is-live .steps-visual {
+        order: -1;
+        height: auto;
+    }
+
+    .steps.is-live .step-title {
+        font-size: 2.6rem;
+    }
+
+    .steps.is-live .step-caption {
+        font-size: 1rem;
     }
 
     .compare-grip {

@@ -15,6 +15,9 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Gala | Entertainment">
     <meta name="twitter:image" content="https://galatheapp.com/assets/images/og-share-card.png">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +35,7 @@
         <img src="/assets/images/gala-badge-black.png" alt="Gala" class="corner-logo">
         <!-- Top buttons. Destinations not decided yet, so they go nowhere for now. -->
         <nav class="top-nav" aria-label="Main">
-            <a class="top-nav-btn" href="#">Contact</a>
+            <a class="top-nav-btn" href="/contact.html">Contact</a>
             <a class="top-nav-btn" href="#">About</a>
         </nav>
         <div class="hero-brand">
@@ -50,23 +53,6 @@
             </clipPath>
         </defs>
     </svg>
-
-    <!-- Photo under the tiles with the tagline on top. Drag the slider left and
-         right: left of the line is black and white, right of it is full color. -->
-    <section class="compare" id="compare" aria-label="Photo slider from black and white to color">
-        <img class="compare-img" src="/assets/images/hero-martinis.jpg" alt="Two martinis clinking at a candlelit table" loading="lazy">
-        <div class="compare-bw">
-            <img class="compare-img compare-img--bw" src="/assets/images/hero-martinis.jpg" alt="" loading="lazy">
-        </div>
-        <p class="compare-statement">Plan Less. Experience More.</p>
-        <div class="compare-handle" role="slider" tabindex="0" aria-label="Black and white to color"
-             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-            <span class="compare-line"></span>
-            <span class="compare-grip" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#212121" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6"/><path d="M15 6l6 6-6 6"/></svg>
-            </span>
-        </div>
-    </section>
 
     <section class="tiles" aria-label="What you can book">
         <div class="tile tile--navy">
@@ -91,6 +77,76 @@
             <div class="tile-blob">
                 <img class="tile-photo" src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night" loading="lazy">
                 <span class="tile-label tile-label--navy">Entertainment</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo with the tagline on top. Drag the slider left and
+         right: left of the line is black and white, right of it is full color. -->
+    <section class="compare" id="compare" aria-label="Photo slider from black and white to color">
+        <img class="compare-img" src="/assets/images/hero-crowd.jpg" alt="A lively crowd of people gathered at an event, seen from above" loading="lazy">
+        <div class="compare-bw">
+            <img class="compare-img compare-img--bw" src="/assets/images/hero-crowd.jpg" alt="" loading="lazy">
+        </div>
+        <p class="compare-statement">Plan Less. Experience More.</p>
+        <div class="compare-handle" role="slider" tabindex="0" aria-label="Black and white to color"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <span class="compare-line"></span>
+            <span class="compare-grip" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#212121" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6"/><path d="M15 6l6 6-6 6"/></svg>
+            </span>
+        </div>
+    </section>
+
+
+    <!-- Browse. Book. Done. A phone on the right swaps screens as you scroll while the
+         three big words on the left light up one at a time. -->
+    <section class="steps" id="steps" aria-label="Browse. Book. Done.">
+        <div class="steps-stage">
+            <ol class="steps-words">
+                <li class="step-word is-active" data-step="0">
+                    <span class="step-title">Browse.</span>
+                    <span class="step-caption">Find bartenders, caterers, musicians and entertainers for your event.</span>
+                </li>
+                <li class="step-word" data-step="1">
+                    <span class="step-title">Book.</span>
+                    <span class="step-caption">Pick your date, time and place, and lock in your talent.</span>
+                </li>
+                <li class="step-word" data-step="2">
+                    <span class="step-title">Done.</span>
+                    <span class="step-caption">Your event is handled. Leave a review when the night is over.</span>
+                </li>
+            </ol>
+            <div class="steps-visual">
+                <div class="steps-blob" aria-hidden="true"></div>
+                <div class="phone-set">
+                    <div class="phone-frame is-active"><img src="/assets/images/app-search.webp" alt="Gala app: choose the date, time and location of your event" loading="lazy"></div>
+                    <div class="phone-frame"><img src="/assets/images/app-bookings.webp" alt="Gala app: your bookings with date, time and location" loading="lazy"></div>
+                    <div class="phone-frame"><img src="/assets/images/app-reviews.webp" alt="Gala app: five-star reviews" loading="lazy"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download: closing call to action.
+         NOTE: the two store links below are placeholders ("#download") until the real
+         App Store and Google Play addresses are added. -->
+    <section class="download" id="download" aria-label="Download Gala">
+        <div class="download-bar">
+            <div class="download-copy">
+                <img class="download-badge" src="/assets/images/gala-badge-white.png" alt="" aria-hidden="true">
+                <div>
+                    <h2 class="download-title">Download Gala.</h2>
+                    <p class="download-text">Plan your next event in minutes.</p>
+                </div>
+            </div>
+            <div class="download-badges">
+                <a href="#download" class="store-link" data-store="apple" aria-label="Download on the App Store">
+                    <img src="/assets/images/apple.png" alt="Download on the App Store" loading="lazy">
+                </a>
+                <a href="#download" class="store-link" data-store="google" aria-label="Get it on Google Play">
+                    <img src="/assets/images/google-play.png" alt="Get it on Google Play" loading="lazy">
+                </a>
             </div>
         </div>
     </section>

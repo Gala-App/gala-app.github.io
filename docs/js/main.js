@@ -266,3 +266,41 @@
   };
   if (wm.complete) go(); else wm.addEventListener('load', go);
 })();
+
+
+// Browse. Book. Done.: while you scroll through this section, the three big words
+// light up one at a time and the phone changes to match. Without this script (or
+// with reduced motion) the words and phones simply sit one after another.
+(function () {
+  var sec = document.getElementById('steps');
+  if (!sec) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var words = Array.prototype.slice.call(sec.querySelectorAll('.step-word'));
+  var phones = Array.prototype.slice.call(sec.querySelectorAll('.phone-frame'));
+  var count = Math.min(words.length, phones.length);
+  if (!count) return;
+
+  sec.classList.add('is-live');
+  sec.setAttribute('data-step', '0');
+  var current = -1, queued = false;
+
+  function update() {
+    queued = false;
+    var r = sec.getBoundingClientRect();
+    var total = sec.offsetHeight - window.innerHeight;
+    var p = total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0;
+    var step = Math.min(count - 1, Math.floor(p * count));
+    if (step === current) return;
+    current = step;
+    sec.setAttribute('data-step', String(step));
+    words.forEach(function (w, i) { w.classList.toggle('is-active', i === step); });
+    phones.forEach(function (f, i) { f.classList.toggle('is-active', i === step); });
+  }
+  function request() { if (!queued) { queued = true; requestAnimationFrame(update); } }
+
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
+  update();
+})();
+
