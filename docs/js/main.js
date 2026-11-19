@@ -67,12 +67,16 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var BLOB = 'M200.59 33.48C208.07 40.5025 206.987 50.535 213.74 57.9425C217.725 62.825 224.452 65.6975 230.002 68.935C234.182 71.415 237.6 74.8325 240.175 79.3425C245.407 88.61 248.49 99.7625 248.83 109.832C249.21 119.497 243.525 127.965 245.067 137.515C246.225 145.042 250.08 152.05 249.997 159.765C249.395 174.95 242.79 191.367 228.182 199.845L227.958 199.98C210.937 208.91 212.177 217.062 203.01 229.717C194.42 240.585 176.283 251.357 162.66 249.857C152.883 248.697 145.117 241.952 134.75 242.527C123.272 242.617 113.862 250.36 102.13 248.385C88.8725 246.692 72.6525 239.165 65.67 228.93C61.2225 222.492 60.3875 214.67 54.5825 208.81C48.435 202.217 38.19 199.395 32.305 192.647C24.1225 183.397 18.9525 167.913 20.175 156.073C21.0225 148.617 25.385 141.807 25.305 134.215C25.38 127.087 22.0125 120.205 20.9475 113.152C18.6425 99.2325 24.765 83.1025 35.03 73.8325C50.785 61.6575 55.57 64.0825 60.97 44.5325C65.8175 29.915 85.255 18.78 104.057 20.2775C116.117 21.195 126.932 26.925 139.317 25.2775C147.105 24.6125 153.495 21.4025 161.07 20.3475C175.455 18.3925 191.873 24.9125 200.585 33.48L200.59 33.48Z';
-  var N = 200, NH = 40;                                   // points per outline / per hole
+  // On phones (touch screens) we keep it lighter: fewer points and no liquid blur,
+  // because phones struggle to redraw a full-screen blur on every scroll tick.
+  var coarse = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 800;
+  var N = coarse ? 140 : 200, NH = coarse ? 28 : 40;      // points per outline / per hole
   var BADGE = { x: 62 / 320, y: 40 / 320, w: 194 / 320, h: 242 / 320 };  // badge inside its picture
   var VBW = 380, VBH = 397;                               // size of the wordmark drawing
   var NS = 'http://www.w3.org/2000/svg';
 
   var layer, svg, group, blur, letters = [], shapes = [], ready = false, queued = false;
+  var range = 400, lastP = -1;   // how far you scroll for the full morph (fixed once measured)
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function easeInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -124,6 +128,10 @@
   }
 
   function build(wordmarkDs) {
+    // Measured once (not on every scroll): phone browsers resize the screen a little as
+    // the address bar slides away, which used to make the morph jump.
+    range = Math.max(320, Math.round(window.innerHeight * 0.55));
+    lastP = -1;
     var r = wm.getBoundingClientRect();
     var k = r.height / VBH;
     var x0 = r.left + window.scrollX, y0 = r.top + window.scrollY;     // where it sits at the top of the page
@@ -173,8 +181,9 @@
     queued = false;
     if (!ready) return;
     var y = window.scrollY;
-    var range = Math.max(320, window.innerHeight * 0.55);
     var p = clamp(y / range);
+    if (p === lastP) return;      // nothing changed since the last redraw
+    lastP = p;
 
     if (p <= 0.002) {                       // at the very top: show the real wordmark
       svg.style.display = 'none';
@@ -186,7 +195,7 @@
     wm.style.visibility = 'hidden';
 
     var goo = Math.sin(p * Math.PI);
-    if (p > 0.03 && p < 0.97) {
+    if (!coarse && p > 0.03 && p < 0.97) {
       blur.setAttribute('stdDeviation', (4 * goo).toFixed(2));
       group.setAttribute('filter', 'url(#morph-goo)');
     } else {
@@ -251,10 +260,14 @@
 
     window.addEventListener('scroll', request, { passive: true });
     var t;
+    var lastW = window.innerWidth;
     window.addEventListener('resize', function () {
+      // Only start over when the WIDTH changes (a rotated phone, a resized window).
+      // A height-only change is just the phone's address bar sliding in or out.
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       clearTimeout(t);
       t = setTimeout(function () {
-        wm.style.visibility = '';
         build(ds);
         update();
       }, 150);

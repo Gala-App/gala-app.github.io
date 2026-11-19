@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#FFFFFF">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,400;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -43,9 +43,8 @@
         </div>
     </section>
 
-    <!-- Colorful tiles under the hero (new brand, draft). The wavy shape is from
-         marketing's SVG; it clips the cream badge so a photo can show inside it
-         when the mouse is over it. -->
+    <!-- The wavy badge shape from marketing's SVG, used as a cut-out by the
+         "Browse. Book. Done." section and the badge accents. -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
         <defs>
             <clipPath id="wiggle-blob" clipPathUnits="objectBoundingBox">
@@ -54,32 +53,6 @@
         </defs>
     </svg>
 
-    <section class="tiles" aria-label="What you can book">
-        <div class="tile tile--navy">
-            <div class="tile-blob">
-                <img class="tile-photo" src="/assets/images/category-bartenders.jpg" alt="Bartender pouring craft cocktails" loading="lazy">
-                <span class="tile-label tile-label--orange">Bartenders</span>
-            </div>
-        </div>
-        <div class="tile tile--yellow">
-            <div class="tile-blob">
-                <img class="tile-photo" src="/assets/images/category-food-vendors.jpg" alt="Catering: tacos with a lime garnish" loading="lazy">
-                <span class="tile-label tile-label--green">Catering</span>
-            </div>
-        </div>
-        <div class="tile tile--green">
-            <div class="tile-blob">
-                <img class="tile-photo" src="/assets/images/category-music-artists.jpg" alt="DJ performing behind a record wall" loading="lazy">
-                <span class="tile-label tile-label--navy">Music Artists</span>
-            </div>
-        </div>
-        <div class="tile tile--orange">
-            <div class="tile-blob">
-                <img class="tile-photo" src="/assets/images/category-entertainment.jpg" alt="Fire performer dancing on the beach at night" loading="lazy">
-                <span class="tile-label tile-label--navy">Entertainment</span>
-            </div>
-        </div>
-    </section>
 
     <!-- Photo with the tagline on top. Drag the slider left and
          right: left of the line is black and white, right of it is full color. -->
@@ -88,7 +61,10 @@
         <div class="compare-bw">
             <img class="compare-img compare-img--bw" src="/assets/images/hero-crowd.jpg" alt="" loading="lazy">
         </div>
-        <p class="compare-statement">Plan Less. Experience More.</p>
+        <!-- The tagline is drawn twice and each copy is cut off at the slider line:
+             white on the black-and-white side, orange on the color side. -->
+        <div class="compare-text compare-text--color" aria-hidden="true"><p>Plan Less. Experience More.</p></div>
+        <div class="compare-text compare-text--bw"><p>Plan Less. Experience More.</p></div>
         <div class="compare-handle" role="slider" tabindex="0" aria-label="Black and white to color"
              aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
             <span class="compare-line"></span>

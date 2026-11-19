@@ -159,85 +159,6 @@ body {
     z-index: 2;
 }
 
-/* ---------- Colorful tiles under the hero (new brand, draft) ---------- */
-
-.tiles {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-}
-
-.tile {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    border-radius: 28px;
-    overflow: hidden;
-}
-
-.tile--navy { background-color: #34408A; }
-.tile--yellow { background-color: #FFC400; }
-.tile--green { background-color: #008A4B; }
-.tile--orange { background-color: #F25A0A; }
-
-/* The cream wavy badge. It shows the category name; when the mouse is over the
-   badge a photo fades in. (clip-path also limits where the mouse counts as
-   "over" it, so only the badge itself reacts.) */
-.tile-blob {
-    position: absolute;
-    inset: 0;
-    clip-path: url(#wiggle-blob);
-    background-color: var(--page-bg);     /* same white as the page */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.tile-photo {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-/* Soft dark wash over the photo so the cream name stays readable. */
-.tile-blob::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-}
-
-.tile-blob:hover .tile-photo,
-.tile-blob:hover::after {
-    opacity: 1;
-}
-
-.tile-label {
-    position: relative;
-    z-index: 1;
-    font-family: "Inter", sans-serif;
-    font-style: italic;
-    font-weight: 800;
-    font-size: clamp(1rem, 2vw, 1.75rem);
-    text-align: center;
-    padding: 0 12%;
-    transition: color 0.35s ease;
-}
-
-.tile-blob:hover .tile-label {
-    color: #EFE5D8;
-}
-
-.tile-label--orange { color: #F25A0A; }
-.tile-label--green { color: #008A4B; }
-.tile-label--navy { color: #34408A; }
-
 /* ---------- Statement on the taupe backdrop (not a card) ---------- */
 
 .backdrop-statement {
@@ -253,12 +174,12 @@ body {
     text-align: center;
 }
 
-/* ---------- Photo slider under the tiles (black and white to color) ---------- */
+/* ---------- Photo slider (black and white to color) ---------- */
 
 .compare {
     position: relative;
     z-index: 1;
-    margin-top: 56px;             /* space between the colorful tiles and the photo */
+    margin-top: 0;
     height: min(82vh, 860px);
     overflow: hidden;
     background-color: #000;
@@ -300,24 +221,46 @@ body {
     pointer-events: none;
 }
 
-.compare-statement {
+/* The tagline: two copies, each cut off at the slider line. White on the
+   black-and-white side, orange on the color side. */
+.compare-text {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.compare-text--bw {
+    clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compare-text--color {
+    clip-path: inset(0 0 0 var(--pos));
+}
+
+.compare-text p {
     width: 90%;
     max-width: 900px;
     margin: 0;
     text-align: center;
-    pointer-events: none;
     /* Omnes Black is not licensed yet, so Nunito Black stands in. */
     font-family: "Nunito", "Inter", sans-serif;
+    font-style: italic;
     font-weight: 900;
     font-size: 2.6rem;
     line-height: 1.2;
-    color: #FFFFFF;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
+}
+
+.compare-text--bw p {
+    color: #FFFFFF;
+}
+
+.compare-text--color p {
+    color: #F25A0A;
 }
 
 /* The slider: one white line across the full height, with a round grip. */
@@ -448,7 +391,7 @@ body {
 .steps {
     position: relative;
     z-index: 1;
-    margin-top: 140px;            /* space between the colorful tiles and this section */
+    margin-top: 140px;            /* space between the photo and this section */
     padding: 96px 28px 24px;
     --phone-h: min(66vh, 680px);
 }
@@ -765,7 +708,7 @@ body {
         margin-top: 32px;
     }
 
-    .compare-statement {
+    .compare-text p {
         font-size: 1.9rem;
     }
 
@@ -837,16 +780,6 @@ body {
     #bottom-nav-left {
         flex-direction: column;
         gap: 6px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .tiles {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .tile-label {
-        font-size: 1.15rem;
     }
 }
 
