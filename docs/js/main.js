@@ -77,6 +77,7 @@
 
   var layer, svg, group, blur, letters = [], shapes = [], ready = false, queued = false;
   var range = 400, lastP = -1;   // how far you scroll for the full morph (fixed once measured)
+  var canvas = null, ctx = null, cw = 0, ch = 0;   // phones draw on a canvas (much cheaper than redrawing SVG)
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function easeInOut(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -132,6 +133,17 @@
     // the address bar slides away, which used to make the morph jump.
     range = Math.max(320, Math.round(window.innerHeight * 0.55));
     lastP = -1;
+    if (canvas) {
+      // A fixed size that does not change when the address bar slides in and out.
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cw = window.innerWidth;
+      ch = Math.max(window.screen && window.screen.height || 0, window.innerHeight);
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      canvas.style.width = cw + 'px';
+      canvas.style.height = ch + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     var r = wm.getBoundingClientRect();
     var k = r.height / VBH;
     var x0 = r.left + window.scrollX, y0 = r.top + window.scrollY;     // where it sits at the top of the page
@@ -185,13 +197,14 @@
     if (p === lastP) return;      // nothing changed since the last redraw
     lastP = p;
 
+    var stage = canvas || svg;              // what we draw the morphing shapes on
     if (p <= 0.002) {                       // at the very top: show the real wordmark
-      svg.style.display = 'none';
+      stage.style.display = 'none';
       wm.style.visibility = '';
       corner.style.opacity = 0;
       return;
     }
-    svg.style.display = '';
+    stage.style.display = '';
     wm.style.visibility = 'hidden';
 
     var goo = Math.sin(p * Math.PI);
@@ -202,7 +215,30 @@
       group.removeAttribute('filter');
     }
 
-    letters.forEach(function (L, i) {
+    if (canvas) {
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.fillStyle = '#212121';
+      letters.forEach(function (L, i) {
+        var pi = clamp((p - i * 0.05) / 0.85);
+        var e = easeInOut(pi), wob = Math.sin(e * Math.PI) * 6;
+        ctx.beginPath();
+        L.S.forEach(function (a, j) {
+          var b = L.T[j];
+          var x = a[0] + (b[0] - a[0]) * e + wob * Math.sin(j * 0.31 + i * 1.7 + p * 6);
+          var yy = a[1] + (b[1] - a[1]) * e + wob * Math.cos(j * 0.27 + i * 1.3 + p * 6);
+          if (j) ctx.lineTo(x, yy); else ctx.moveTo(x, yy);
+        });
+        ctx.closePath();
+        L.holes.forEach(function (h) {
+          h.S.forEach(function (a, j) {
+            var x = a[0] + (h.c[0] - a[0]) * e, yy = a[1] + (h.c[1] - a[1]) * e;
+            if (j) ctx.lineTo(x, yy); else ctx.moveTo(x, yy);
+          });
+          ctx.closePath();
+        });
+        ctx.fill();            // one letter at a time so overlapping letters never cancel out
+      });
+    } else letters.forEach(function (L, i) {
       var pi = clamp((p - i * 0.05) / 0.85);
       var e = easeInOut(pi), wob = Math.sin(e * Math.PI) * 6;
       var d = '';
@@ -248,6 +284,14 @@
       '<feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -4.5"/>' +
       '</filter></defs><g></g>';
     layer.appendChild(svg);
+    if (coarse) {
+      canvas = document.createElement('canvas');
+      canvas.className = 'morph-canvas';
+      canvas.setAttribute('aria-hidden', 'true');
+      ctx = canvas.getContext('2d');
+      layer.appendChild(canvas);
+      svg.style.display = 'none';
+    }
     group = svg.querySelector('g');
     blur = svg.querySelector('feGaussianBlur');
     layer.appendChild(corner);                 // move the corner badge into the layer

@@ -145,6 +145,14 @@ body {
     overflow: visible;
 }
 
+.morph-layer canvas.morph-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    transform: translateZ(0);       /* its own layer, so redrawing it never repaints the page */
+}
+
 .morph-layer .corner-logo {
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));   /* keeps the black badge visible over dark photos */
 }
@@ -198,10 +206,6 @@ body {
     object-fit: cover;
     object-position: center 50%;
     pointer-events: none;
-}
-
-.compare-img--bw {
-    filter: grayscale(1);
 }
 
 /* Black-and-white copy: shows only to the left of the line. */
@@ -260,7 +264,7 @@ body {
 }
 
 .compare-text--color p {
-    color: #F25A0A;
+    color: #FFC400;      /* the same yellow as the Browse. background shape */
 }
 
 /* The slider: one white line across the full height, with a round grip. */

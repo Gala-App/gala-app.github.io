@@ -57,9 +57,9 @@
     <!-- Photo with the tagline on top. Drag the slider left and
          right: left of the line is black and white, right of it is full color. -->
     <section class="compare" id="compare" aria-label="Photo slider from black and white to color">
-        <img class="compare-img" src="/assets/images/hero-crowd.jpg" alt="A lively crowd of people gathered at an event, seen from above" loading="lazy">
+        <img class="compare-img" src="/assets/images/hero-crowd.jpg" srcset="/assets/images/hero-crowd-1400.jpg 1400w, /assets/images/hero-crowd.jpg 2400w" sizes="100vw" alt="A lively crowd of people gathered at an event, seen from above" decoding="async" fetchpriority="low">
         <div class="compare-bw">
-            <img class="compare-img compare-img--bw" src="/assets/images/hero-crowd.jpg" alt="" loading="lazy">
+            <img class="compare-img" src="/assets/images/hero-crowd-bw.jpg" srcset="/assets/images/hero-crowd-bw-1400.jpg 1400w, /assets/images/hero-crowd-bw.jpg 2400w" sizes="100vw" alt="" decoding="async" fetchpriority="low">
         </div>
         <!-- The tagline is drawn twice and each copy is cut off at the slider line:
              white on the black-and-white side, orange on the color side. -->
